@@ -1,0 +1,53 @@
+﻿﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Template</title>
+</head>
+<body>
+    <div id="DoubanProviderConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-select,emby-checkbox">
+        <div data-role="content">
+            <div class="content-primary">
+                <form id="DoubanProviderConfigForm">
+                    <div class="inputContainer">
+                        <label class="inputeLabel inputLabelUnfocused" for="MinRequestInternalMs">Minimum request Internal(ms)</label>
+                        <input id="MinRequestInternalMs" name="MinRequestInternalMs" type="number" is="emby-input" min="0" />
+                        <div class="fieldDescription">Minimum request Internal 最小请求间隔，单位为毫秒</div>
+                    </div>
+                    <div>
+                        <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var DoubanProviderConfig = {
+                pluginUniqueId: 'ce69a5ea-14b6-44a3-b75a-9d21dd32a7cf'
+            };
+
+            $('#DoubanProviderConfigPage').on('pageshow', function () {
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(DoubanProviderConfig.pluginUniqueId).then(function (config) {
+                    $('#ApiKey').val(config.ApiKey).change();
+                    $('#MinRequestInternalMs').val(config.MinRequestInternalMs).change();
+                    Dashboard.hideLoadingMsg();
+                });
+            });
+
+            $('#DoubanProviderConfigForm').on('submit', function () {
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(DoubanProviderConfig.pluginUniqueId).then(function (config) {
+                    config.ApiKey = $('#ApiKey').val();
+                    config.MinRequestInternalMs = $('#MinRequestInternalMs').val();
+                    ApiClient.updatePluginConfiguration(DoubanProviderConfig.pluginUniqueId, config).then(function (result) {
+                        Dashboard.processPluginConfigurationUpdateResult(result);
+                    });
+                });
+                return false;
+            });
+        </script>
+    </div>
+</body>
+</html>

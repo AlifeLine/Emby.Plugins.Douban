@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "2FoUPexVF2PrVd3lIilYtEO5UAV/fP0fuju2UwDSrtMljG6p1ZZPePw21QT+UbcSAmgFTSL/MJnEwRHdepZw9w==",
+  "success": true,
+  "projectFilePath": "D:\\source\\repos\\Emby.Plugins.AnimeKai\\Emby.Plugins.Douban.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\liboy\\.nuget\\packages\\ilrepack\\2.0.18\\ilrepack.2.0.18.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\mediabrowser.common\\4.5.0.28\\mediabrowser.common.4.5.0.28.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\mediabrowser.server.core\\4.5.0.28\\mediabrowser.server.core.4.5.0.28.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
+    "C:\\Users\\liboy\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.3\\system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512"
+  ],
+  "logs": []
+}

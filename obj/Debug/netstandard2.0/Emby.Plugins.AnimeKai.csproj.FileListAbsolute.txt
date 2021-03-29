@@ -1,0 +1,8 @@
+D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.AnimeKai.AssemblyInfoInputs.cache
+D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.AnimeKai.AssemblyInfo.cs
+D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.AnimeKai.csproj.CoreCompileInputs.cache
+D:\source\repos\Emby.Plugins.AnimeKai\bin\Debug\netstandard2.0\Emby.Plugins.AnimeKai.deps.json
+D:\source\repos\Emby.Plugins.AnimeKai\bin\Debug\netstandard2.0\Emby.Plugins.AnimeKai.dll
+D:\source\repos\Emby.Plugins.AnimeKai\bin\Debug\netstandard2.0\Emby.Plugins.AnimeKai.pdb
+D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.AnimeKai.dll
+D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.AnimeKai.pdb

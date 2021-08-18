@@ -9,10 +9,8 @@ namespace Emby.Plugins.Douban
 {
     public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     {
-        public const string PluginName = "Douban Emby";
-
+        public const string PluginName = "Emby ∂π∞Íœ˜πŒ∆˜";
         public override Guid Id => new Guid("ce69a5ea-14b6-44a3-b75a-9d21dd32a7cf");
-
         public override string Name => PluginName;
 
         public override string Description => "Improved Metadata Provider, specifically designed for Douban.";
@@ -25,12 +23,17 @@ namespace Emby.Plugins.Douban
 
         public IEnumerable<PluginPageInfo> GetPages()
         {
+            var type = GetType();
             return new[]
             {
                 new PluginPageInfo
                 {
-                    Name = this.Name,
-                    EmbeddedResourcePath = string.Format("{0}.Configuration.configPage.html", GetType().Namespace)
+                    Name = "douban_account_setting",
+                    EmbeddedResourcePath = GetType().Namespace + ".Configuration.configPage.html",
+                    EnableInMainMenu = true,
+                    MenuSection = "server",
+                    MenuIcon = "theaters",
+                    DisplayName = "∂π∞Í’À∫≈…Ë÷√"
                 }
             };
         }

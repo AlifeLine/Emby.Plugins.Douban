@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Net.Http;
+using System;
 
 namespace Emby.Plugins.Douban.Providers
 {
@@ -92,7 +93,7 @@ namespace Emby.Plugins.Douban.Providers
                 var searchResult = new RemoteSearchResult()
                 {
                     Name = searchTarget?.Title,
-                    ImageUrl = "https://quiet-tooth-fc54.alifelife.workers.dev/?url="+searchTarget?.Cover_Url,
+                    ImageUrl = GetLocalUrl(searchTarget?.Cover_Url, ImageType.Thumb),
                     ProductionYear = int.Parse(searchTarget?.Year)
                 };
                 searchResult.SetProviderId(ProviderID, searchTarget.Id);
@@ -212,7 +213,14 @@ namespace Emby.Plugins.Douban.Providers
 
             return result;
         }
-
+        private string GetLocalUrl(string url, ImageType type = ImageType.Backdrop)
+        {
+            if (string.IsNullOrEmpty(url))
+                return url;
+            if (url.IndexOf("Plugins/alifeline_douban/Image", StringComparison.OrdinalIgnoreCase) >= 0)
+                return url;
+            return $"/emby/Plugins/alifeline_douban/Image?url={url}&type={type}";
+        }
 
         public Task<IEnumerable<RemoteSearchResult>> GetSearchResults(
             EpisodeInfo info, CancellationToken cancellationToken)
@@ -224,11 +232,14 @@ namespace Emby.Plugins.Douban.Providers
         }
         Task<HttpResponseInfo> IRemoteSearchProvider.GetImageResponse(string url, CancellationToken cancellationToken)
         {
-            _logger.Info("GetImageResponse url:" + url);
-            var newUrl = url.Replace("https://quiet-tooth-fc54.alifelife.workers.dev/?url=", "");
+            _logger.Info("TV GetImageResponse url:" + url);
+            if (url.IndexOf("Plugins/alifeline_douban/Image", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                url = url.Replace("/emby/Plugins/alifeline_douban/Image?url=", "");
+            }
             var res = _httpClient.GetResponse(new HttpRequestOptions
             {
-                Url = newUrl,
+                Url = url,
                 CancellationToken = cancellationToken
             });
             return res;

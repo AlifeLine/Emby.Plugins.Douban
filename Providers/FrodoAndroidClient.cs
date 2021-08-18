@@ -147,6 +147,7 @@ namespace Emby.Plugins.Douban
             {
                 "GET",
                 path.Replace("/", "%2F"),
+                //"accesstoken",
                 ts
             };
             string signMessage = String.Join("&", message);
@@ -209,6 +210,7 @@ namespace Emby.Plugins.Douban
 
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", UserAgents[_random.Next(UserAgents.Length)]);
+            //httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "Bearer accesstoken");
             HttpResponseMessage response = await httpClient.GetAsync(url, cancellationToken);
             string res = await response.Content.ReadAsStringAsync();
             _logger.LogCallerInfo($"response.Content: {res}");

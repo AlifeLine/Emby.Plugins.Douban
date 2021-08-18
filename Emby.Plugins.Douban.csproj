@@ -10,4 +10,7 @@
         <PackageReference Include="ILRepack" Version="2.0.18" />
         <PackageReference Include="System.Memory" Version="4.5.4" />
     </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\configPage.html" />
+  </ItemGroup>
 </Project>

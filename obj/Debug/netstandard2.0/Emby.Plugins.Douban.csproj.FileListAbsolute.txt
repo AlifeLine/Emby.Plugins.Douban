@@ -6,3 +6,11 @@ D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.Doub
 D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.Douban.csproj.CoreCompileInputs.cache
 D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.Douban.dll
 D:\source\repos\Emby.Plugins.AnimeKai\obj\Debug\netstandard2.0\Emby.Plugins.Douban.pdb
+D:\source\repos\Emby.Plugins.Douban\obj\Debug\netstandard2.0\Emby.Plugins.Douban.AssemblyInfoInputs.cache
+D:\source\repos\Emby.Plugins.Douban\obj\Debug\netstandard2.0\Emby.Plugins.Douban.AssemblyInfo.cs
+D:\source\repos\Emby.Plugins.Douban\obj\Debug\netstandard2.0\Emby.Plugins.Douban.csproj.CoreCompileInputs.cache
+D:\source\repos\Emby.Plugins.Douban\obj\Debug\netstandard2.0\Emby.Plugins.Douban.dll
+D:\source\repos\Emby.Plugins.Douban\obj\Debug\netstandard2.0\Emby.Plugins.Douban.pdb
+D:\source\repos\Emby.Plugins.Douban\bin\Debug\netstandard2.0\Emby.Plugins.Douban.deps.json
+D:\source\repos\Emby.Plugins.Douban\bin\Debug\netstandard2.0\Emby.Plugins.Douban.dll
+D:\source\repos\Emby.Plugins.Douban\bin\Debug\netstandard2.0\Emby.Plugins.Douban.pdb

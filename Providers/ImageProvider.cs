@@ -46,8 +46,8 @@ namespace Emby.Plugins.Douban.Providers
             list.AddRange(primaryList);
 
             // TODO(Libitum): Add backdrop back.
-            // var backdropList = await GetBackdrop(sid, cancellationToken);
-            // list.AddRange(backdropList);
+            var backdropList = await GetBackdrop(sid, cancellationToken);
+            list.AddRange(backdropList);
 
             return list;
         }
@@ -82,7 +82,9 @@ namespace Emby.Plugins.Douban.Providers
 
         public async Task<IEnumerable<RemoteImageInfo>> GetBackdrop(string sid,
             CancellationToken cancellationToken)
+
         {
+            _logger.Info("IM GetBackdrop url");
             var url = string.Format("https://movie.douban.com/subject/{0}/photos?" +
                                     "type=W&start=0&sortby=size&size=a&subtype=a", sid);
 
@@ -119,7 +121,11 @@ namespace Emby.Plugins.Douban.Providers
 
         Task<HttpResponseInfo> IRemoteImageProvider.GetImageResponse(string url, CancellationToken cancellationToken)
         {
-            _logger.Info("GetImageResponse url:" + url);
+            _logger.Info("IM GetImageResponse url:" + url);
+            if (url.IndexOf("Plugins/alifeline_douban/Image", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                url = url.Replace("/emby/Plugins/alifeline_douban/Image?url=", "");
+            }
             var res= _httpClient.GetResponse(new HttpRequestOptions
             {
                 Url = url

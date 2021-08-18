@@ -426,11 +426,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\source\\repos\\Emby.Plugins.AnimeKai\\Emby.Plugins.Douban.csproj",
+      "projectUniqueName": "D:\\source\\repos\\Emby.Plugins.Douban\\Emby.Plugins.Douban.csproj",
       "projectName": "Emby.Plugins.Douban",
-      "projectPath": "D:\\source\\repos\\Emby.Plugins.AnimeKai\\Emby.Plugins.Douban.csproj",
+      "projectPath": "D:\\source\\repos\\Emby.Plugins.Douban\\Emby.Plugins.Douban.csproj",
       "packagesPath": "C:\\Users\\liboy\\.nuget\\packages\\",
-      "outputPath": "D:\\source\\repos\\Emby.Plugins.AnimeKai\\obj\\",
+      "outputPath": "D:\\source\\repos\\Emby.Plugins.Douban\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\liboy\\AppData\\Roaming\\NuGet\\NuGet.Config",

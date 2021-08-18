@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2FoUPexVF2PrVd3lIilYtEO5UAV/fP0fuju2UwDSrtMljG6p1ZZPePw21QT+UbcSAmgFTSL/MJnEwRHdepZw9w==",
+  "dgSpecHash": "kMTHJ+VXQUQkYyHu0aNuuyVurGTv1gVQ7l1vKYQH+gJwgIO1KMSJhz+MetB6FNFlzJ9tgkyvuV0k5vo5jU1RFg==",
   "success": true,
-  "projectFilePath": "D:\\source\\repos\\Emby.Plugins.AnimeKai\\Emby.Plugins.Douban.csproj",
+  "projectFilePath": "D:\\source\\repos\\Emby.Plugins.Douban\\Emby.Plugins.Douban.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\liboy\\.nuget\\packages\\ilrepack\\2.0.18\\ilrepack.2.0.18.nupkg.sha512",
     "C:\\Users\\liboy\\.nuget\\packages\\mediabrowser.common\\4.5.0.28\\mediabrowser.common.4.5.0.28.nupkg.sha512",

@@ -55,4 +55,5 @@ namespace Emby.Plugins.Douban.Response
         public string Runtime { get; set; }
         public string Cover_Url { get; set; }
     }
+
 }

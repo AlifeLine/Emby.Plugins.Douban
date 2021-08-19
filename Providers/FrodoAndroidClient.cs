@@ -87,9 +87,30 @@ namespace Emby.Plugins.Douban
             _cache.Add(path, subject);
 
             _logger.LogCallerInfo($"Finish doing GetSubject by Id: {doubanID}");
-            return subject;
+            return subject; 
         }
+        public async Task<Response.SubjectCredits> GetSubjectCredits(string doubanID, MediaType type, CancellationToken cancellationToken)
+        {
+            _logger.LogCallerInfo($"Start to SubjectCredits by Id: {doubanID}");
 
+            string path = $"/api/v2/{type:G}/{doubanID}/credits";
+            // Try to use cache firstly.
+            if (_cache.TryGet<Response.SubjectCredits>(path, out Response.SubjectCredits SubjectCredits))
+            {
+                _logger.LogCallerInfo($"Get subject {doubanID} from cache");
+                return SubjectCredits;
+            }
+
+            Dictionary<string, string> queryParams = new Dictionary<string, string>();
+            var contentStream = await GetResponse(path, queryParams, cancellationToken);
+            //_logger.LogCallerInfo($"SubjectCredits: {contentStream}");
+            SubjectCredits = _jsonSerializer.DeserializeFromString<Response.SubjectCredits>(contentStream);
+            // Add it into cache
+            _cache.Add(path, SubjectCredits);
+
+            _logger.LogCallerInfo($"Finish doing SubjectCredits by Id: {doubanID}");
+            return SubjectCredits;
+        }
         /// <summary>
         /// Search in Douban by a search query.
         /// </summary>

@@ -11,6 +11,7 @@ using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Serialization;
 using MediaBrowser.Model.Logging;
+using System.Text.RegularExpressions;
 
 namespace Emby.Plugins.Douban
 {
@@ -100,16 +101,16 @@ namespace Emby.Plugins.Douban
         protected async Task<MetadataResult<T>> GetMetadata<T>(string sid, CancellationToken cancellationToken)
         where T : BaseItem, new()
         {
+            _logger.Info("GetMetadata T");
             var result = new MetadataResult<T>();
 
             MediaType type = typeof(T) == typeof(Movie) ? MediaType.movie : MediaType.tv;
             var subject = await _doubanClient.GetSubject(sid, type, cancellationToken);
-
+            var subjectCredits=await _doubanClient.GetSubjectCredits(sid, type, cancellationToken);
             result.Item = TransMediaInfo<T>(subject);
             result.Item.SetProviderId(ProviderID, sid);
-            TransPersonInfo(subject.Directors, PersonType.Director).ForEach(result.AddPerson);
-            TransPersonInfo(subject.Actors, PersonType.Actor).ForEach(result.AddPerson);
-
+            TransPersonInfo(subjectCredits.credits.ElementAt(0).celebrities, PersonType.Director).ForEach(result.AddPerson);
+            TransPersonInfo(subjectCredits.credits.ElementAt(1).celebrities, PersonType.Actor).ForEach(result.AddPerson);
             result.QueriedById = true;
             result.HasMetadata = true;
 
@@ -150,20 +151,21 @@ namespace Emby.Plugins.Douban
         }
 
         private static List<PersonInfo> TransPersonInfo(
-            List<Crew> crewList, PersonType personType)
+            List<CelebritiesItem> CelebritiesList, PersonType personType)
         {
             var result = new List<PersonInfo>();
-            foreach (var crew in crewList)
+            foreach (var Celebrities in CelebritiesList)
             {
+                var role = Regex.Replace(Celebrities.character, @"(.*\()(.*)(\).*)", "$2");
                 var personInfo = new PersonInfo
                 {
-                    Name = crew.Name,
-                    Type = personType,
-                    ImageUrl = crew.Avatar?.Large ?? "",
-                    Role = crew.Roles.Count > 0 ? crew.Roles[0] : ""
+                    Name = Celebrities.name,
+                    Type = personType,  
+                    ImageUrl = Celebrities.avatar.large ?? "",
+                    Role = role?? Celebrities.character
                 };
 
-                personInfo.SetProviderId(ProviderID, crew.Id);
+                personInfo.SetProviderId(ProviderID, Celebrities.id);
                 result.Add(personInfo);
             }
             return result;

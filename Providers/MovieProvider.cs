@@ -9,7 +9,6 @@ using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
 using MediaBrowser.Model.Serialization;
 using MediaBrowser.Model.Logging;
-using Emby.Plugins.JavScraper.Services;
 using System;
 
 namespace Emby.Plugins.Douban.Providers
@@ -20,7 +19,6 @@ namespace Emby.Plugins.Douban.Providers
         public string Name => "Douban Emby Movie Provider";
         public int Order => 3;
         private readonly IHttpClient _httpClient;
-        private readonly ImageProxyService imageProxyService;
         public MovieProvider(IHttpClient http, IJsonSerializer jsonSerializer,
             ILogger logger) : base(jsonSerializer, logger)
         {

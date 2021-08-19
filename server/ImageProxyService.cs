@@ -24,14 +24,16 @@ namespace Emby.Plugins.JavScraper.Services
         private HttpClientEx client;
         private static FileExtensionContentTypeProvider fileExtensionContentTypeProvider = new FileExtensionContentTypeProvider();
 
-        public ImageProxyService(IJsonSerializer jsonSerializer, ILogger logger, IFileSystem fileSystem, IApplicationPaths appPaths)
+        public ImageProxyService(IServerApplicationHost serverApplicationHost, IJsonSerializer jsonSerializer, ILogger logger, IFileSystem fileSystem, IApplicationPaths appPaths)
         {
             client = new HttpClientEx();
+            this.serverApplicationHost = serverApplicationHost;
             this.jsonSerializer = jsonSerializer;
             this.logger = logger;
             this.fileSystem = fileSystem;
             this.appPaths = appPaths;
         }
+        private readonly IServerApplicationHost serverApplicationHost;
         private readonly IJsonSerializer jsonSerializer;
         private readonly ILogger logger;
         private readonly IFileSystem fileSystem;
@@ -101,7 +103,15 @@ namespace Emby.Plugins.JavScraper.Services
         /// <param name="url"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-
+        public string GetLocalUrl(string url, ImageType type = ImageType.Backdrop)
+        {
+            logger?.Info("start get local url");
+            if (string.IsNullOrEmpty(url))
+                return url;
+            if (url.IndexOf("Plugins/alifeline_douban/Image", StringComparison.OrdinalIgnoreCase) >= 0)
+                return url;
+            return $"/emby/Plugins/alifeline_douban/Image?url={HttpUtility.UrlEncode(url)}&type={type}";
+        }
         private async Task<HttpResponseInfo> Parse(HttpResponseMessage resp)
         {
             var r = new HttpResponseInfo()

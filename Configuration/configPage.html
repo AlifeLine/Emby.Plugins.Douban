@@ -15,21 +15,25 @@
                         <input id="MinRequestInternalMs" name="MinRequestInternalMs" type="number" is="emby-input" min="0" />
                         <div class="fieldDescription">最小请求间隔，单位为毫秒</div>
                     </div>
-                    <div class="checkboxContainer checkboxContainer-withDescription">
-                        <label>
-                            <input type="checkbox" is="emby-checkbox" id="isUserLogin" />
-                            <span>模拟登录获取信息,(登录后能获得更多的信息推荐登录)</span>
-                        </label>
-                        <div class="fieldDescription checkboxFieldDescription"></div>
-                    </div>
-                    <div class="inputContainer">
-                        <label class="inputeLabel inputLabelUnfocused" for="username">手机号/邮箱</label>
-                        <input id="username" name="username" type="number" is="emby-input" min="0" />
-                        <div class="fieldDescription">豆瓣登录的手机号或者邮箱，没有请先注册</div>
+                    <div>
+                        <div class="checkboxContainer checkboxContainer-withDescription">
+                            <label>
+                                <input type="checkbox" is="emby-checkbox" id="isUserLogin" />
+                                <span>模拟登录获取信息,(登录后能获得更多的信息推荐登录)</span>
+                            </label>
+                            <div class="fieldDescription checkboxFieldDescription"></div>
+                        </div>
+                        <div class="inputContainer">
+                            <label class="inputLabel inputLabel-float inputLabelUnfocused" for="douabnusername">手机号/邮箱:</label>
+                            <input is="emby-input" id="douabnusername" name="douabnusername" class="emby-input" label="手机号/邮箱：">
+                            <div class="fieldDescription">豆瓣登录的手机号或者邮箱，没有请先注册</div>
+                        </div>
 
-                        <label class="inputeLabel inputLabelUnfocused" for="password">密码</label>
-                        <input id="password" name="password" type="number" is="emby-input" min="0" />
-                        <div class="fieldDescription">不能使用短信验证码，请输入你的密码</div>
+                        <div class="inputContainer">
+                            <label class="inputLabel inputLabel-float inputLabelUnfocused" for="douabnpassword">密码:</label>
+                            <input is="emby-input" id="douabnpassword" name="douabnpassword" class="emby-input" label="密码：">
+                            <div class="fieldDescription">不能使用短信验证码，请输入你的密码</div>
+                        </div>
                     </div>
                     <div>
                         <button is="emby-button" type="submit" class="raised button-submit block emby-button">
@@ -45,12 +49,13 @@
             };
 
             $('#DoubanProviderConfigPage').on('pageshow', function () {
+                var page = this;
                 Dashboard.showLoadingMsg();
                 ApiClient.getPluginConfiguration(DoubanProviderConfig.pluginUniqueId).then(function (config) {
                     $('#MinRequestInternalMs').val(config.MinRequestInternalMs).change();
-                    $('#username').val(config.doubanPhoneorEmail).change();
-                    $('#password').val(config.password).change();
-                    $('#isUserLogin').val(config.isUserLogin).change();
+                    $('#douabnusername').val(config.doubanPhoneorEmail).change();
+                    $('#douabnpassword').val(config.doubanPassword).change();
+                    page.querySelector('#isUserLogin').checked = config.isUserLogin;
                     Dashboard.hideLoadingMsg();
                 });
             });
@@ -59,9 +64,9 @@
                 Dashboard.showLoadingMsg();
                 ApiClient.getPluginConfiguration(DoubanProviderConfig.pluginUniqueId).then(function (config) {
                     config.MinRequestInternalMs = $('#MinRequestInternalMs').val();
-                    config.doubanPhoneorEmail = $('#username').val();
-                    config.password = $('#password').val();
-                    config.isUserLogin = $('#isUserLogin').val();
+                    config.doubanPhoneorEmail = $('#douabnusername').val();
+                    config.doubanPassword = $('#douabnpassword').val();
+                    config.isUserLogin = $('#isUserLogin').prop('checked');
                     ApiClient.updatePluginConfiguration(DoubanProviderConfig.pluginUniqueId, config).then(function (result) {
                         Dashboard.processPluginConfigurationUpdateResult(result);
                     });

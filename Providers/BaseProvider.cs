@@ -97,7 +97,11 @@ namespace Emby.Plugins.Douban
             MediaType type = typeof(T) == typeof(Movie) ? MediaType.movie : MediaType.tv;
             return await _doubanClient.GetSubject(sid, type, cancellationToken);
         }
-
+        protected async Task<Response.ElessarSubject> getPersonInfo(string doubanId,
+    CancellationToken cancellationToken)
+        {
+            return await _doubanClient.getPersonInfo(doubanId, cancellationToken);
+        }
         protected async Task<MetadataResult<T>> GetMetadata<T>(string sid, CancellationToken cancellationToken)
         where T : BaseItem, new()
         {
@@ -109,11 +113,12 @@ namespace Emby.Plugins.Douban
             var subjectCredits=await _doubanClient.GetSubjectCredits(sid, type, cancellationToken);
             result.Item = TransMediaInfo<T>(subject);
             result.Item.SetProviderId(ProviderID, sid);
-            TransPersonInfo(subjectCredits.credits.ElementAt(0).celebrities, PersonType.Director).ForEach(result.AddPerson);
-            TransPersonInfo(subjectCredits.credits.ElementAt(1).celebrities, PersonType.Actor).ForEach(result.AddPerson);
+            var tt1 = TransPersonInfo(subjectCredits.credits[0].celebrities, PersonType.Director);
+            var tt2 = TransPersonInfo(subjectCredits.credits[1].celebrities, PersonType.Director);
+            TransPersonInfo(subjectCredits.credits[0].celebrities, PersonType.Director).ForEach(result.AddPerson);
+            TransPersonInfo(subjectCredits.credits[1].celebrities, PersonType.Actor).ForEach(result.AddPerson);
             result.QueriedById = true;
             result.HasMetadata = true;
-
             return result;
         }
 
@@ -156,7 +161,14 @@ namespace Emby.Plugins.Douban
             var result = new List<PersonInfo>();
             foreach (var Celebrities in CelebritiesList)
             {
+                if (Celebrities.name == "")
+                {
+                    continue;
+                }
                 var role = Regex.Replace(Celebrities.character, @"(.*\()(.*)(\).*)", "$2");
+                var uri = Celebrities.uri;
+                string[] str2 = uri.Split('=');
+                var personId = str2[str2.Length-1];
                 var personInfo = new PersonInfo
                 {
                     Name = Celebrities.name,
@@ -165,7 +177,7 @@ namespace Emby.Plugins.Douban
                     Role = role?? Celebrities.character
                 };
 
-                personInfo.SetProviderId(ProviderID, Celebrities.id);
+                personInfo.SetProviderId(ProviderID, personId);
                 result.Add(personInfo);
             }
             return result;

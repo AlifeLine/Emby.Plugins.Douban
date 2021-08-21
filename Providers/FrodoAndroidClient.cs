@@ -89,6 +89,28 @@ namespace Emby.Plugins.Douban
             _logger.LogCallerInfo($"Finish doing GetSubject by Id: {doubanID}");
             return subject; 
         }
+        public async Task<Response.ElessarSubject> getPersonInfo(string doubanID, CancellationToken cancellationToken)
+        {
+            _logger.LogCallerInfo($"Start to elessarSubject by Id: {doubanID}");
+
+            string path = $"/api/v2/elessar/subject/{doubanID}";
+            // Try to use cache firstly.
+            if (_cache.TryGet<Response.ElessarSubject>(path, out Response.ElessarSubject elessarSubject))
+            {
+                _logger.LogCallerInfo($"Get subject {doubanID} from cache");
+                return elessarSubject;
+            }
+
+            Dictionary<string, string> queryParams = new Dictionary<string, string>();
+            var contentStream = await GetResponse(path, queryParams, cancellationToken);
+            //_logger.LogCallerInfo($"SubjectCredits: {contentStream}");
+            elessarSubject = _jsonSerializer.DeserializeFromString<Response.ElessarSubject>(contentStream);
+            // Add it into cache
+            _cache.Add(path, elessarSubject);
+
+            _logger.LogCallerInfo($"Finish doing elessarSubject by Id: {doubanID}");
+            return elessarSubject;
+        }
         public async Task<Response.SubjectCredits> GetSubjectCredits(string doubanID, MediaType type, CancellationToken cancellationToken)
         {
             _logger.LogCallerInfo($"Start to SubjectCredits by Id: {doubanID}");
